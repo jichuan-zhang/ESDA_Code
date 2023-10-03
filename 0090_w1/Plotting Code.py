@@ -9,11 +9,11 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-file_path = "DataSet1.csv"
+file_path = "Gas_population.csv"
 df = pd.read_csv(file_path)
 
 # Define the country codes
-country_codes = ["AFG", "AGO"]
+country_codes = ["BEL", "AUT"]
 
 # Define the sectors
 sectors = ["Agriculture", "Energy", "Industrial Processes and Product Use", "Other", "Total excluding LULUCF", "Waste"]
