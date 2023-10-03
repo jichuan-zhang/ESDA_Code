@@ -9,24 +9,21 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Load your dataset into a Pandas DataFrame (assuming you've already done this)
-
-# Assuming your dataset is in a CSV file named "data.csv"
 file_path = "DataSet1.csv"
-
-# Read the CSV file into a Pandas DataFrame
 df = pd.read_csv(file_path)
 
-# Define the country codes you want to plot
-country_codes = ["AFG", "AGO"]  # Replace with your desired country codes
+# Define the country codes
+country_codes = ["AFG", "AGO"]
 
-# Define the sectors you want to compare
+# Define the sectors
 sectors = ["Agriculture", "Energy", "Industrial Processes and Product Use", "Other", "Total excluding LULUCF", "Waste"]
 
+# Define year interval
 Year = np.linspace(1960, 2021, 62)
 
 # Loop through the sectors and create plots for each country code
 for sector in sectors:
+    
     # Initialize an empty plot
     fig, ax = plt.subplots()
 
@@ -36,15 +33,15 @@ for sector in sectors:
         filtered_df = df[(df['Country Code'] == country_code) & (df['sector'] == sector)]
 
         if not filtered_df.empty:
-            # Extract the gas columns for the current sector
-            gas_type = filtered_df.iloc[:, 3].tolist()  # Assuming the gas columns start from column 4
+            # Extract the gas type for the current sector
+            gas_type = filtered_df.iloc[:, 3].tolist()  
 
             # Plot each gas as a line on the same graph
             for gas in gas_type:
-                # Find the row in filtered_df where the 4th column matches the gas_column
+                # Find the row in filtered_df where the 4th column matches the gas type
                 gas_row = filtered_df[filtered_df.iloc[:, 3] == gas]
 
-                # Check if a row with the gas_column was found
+                # Check if a row with the gas type was found
                 if not gas_row.empty:
                     gas_value = gas_row.iloc[:, 4:].values.flatten()
 
@@ -54,12 +51,8 @@ for sector in sectors:
     plt.xlabel('Year')
     plt.ylabel('Value')
     plt.title(f'{sector} Gas Values Comparison')
-
-    # Add a legend to distinguish gas types and country codes
     plt.legend()
-
-    # Show or save the plot (uncomment the relevant line)
-    plt.show()  # Uncomment this line to display the plot
+    plt.show()
 
     # Clear the current plot for the next sector
     plt.clf()
