@@ -13,10 +13,12 @@ file_path = "Emission_per_Capita.csv"
 df = pd.read_csv(file_path)
 
 # Define the country codes
-country_codes = ["BEL", "AUT"]
-
+#country_codes = ["ARM", "AZE", "BLR", "GEO", "KAZ", "KGZ", "LVA", "MDA", "RUS", "TJK", "TKM", "UKR", "UZB", "LTU", "EST"]
+#country_codes = ["AZE", "BLR", "GEO", "KAZ", "RUS", "UKR", "UZB", "EST"]
+country_codes = ["EST"]
 # Define the sectors
 sectors = ["Agriculture", "Energy", "Industrial Processes and Product Use", "Other", "Total excluding LULUCF", "Waste"]
+#sectors = ["Total excluding LULUCF"]
 
 # Define year interval
 Year = np.linspace(1960, 2021, 62)
@@ -26,6 +28,7 @@ for sector in sectors:
     
     # Initialize an empty plot
     fig, ax = plt.subplots()
+    fig.set_size_inches(10, 8)
 
     # Loop through the country codes
     for country_code in country_codes:

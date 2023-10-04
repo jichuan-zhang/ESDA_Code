@@ -13,10 +13,12 @@ file_path = "Emission_per_Capita.csv"
 df = pd.read_csv(file_path)
 
 # Define the country codes
-country_codes = ["USSR", "USA", "CHN"]
-
+#country_codes = ["ARM", "AZE", "BLR", "GEO", "KAZ", "KGZ", "LVA", "MDA", "RUS", "TJK", "TKM", "UKR", "UZB", "LTU", "EST"]
+#country_codes = ["AZE", "BLR", "GEO", "KAZ", "RUS", "UKR", "UZB", "EST"]
+country_codes = ["EST"]
 # Define the sectors
 sectors = ["Agriculture", "Energy", "Industrial Processes and Product Use", "Other", "Total excluding LULUCF", "Waste"]
+#sectors = ["Total excluding LULUCF"]
 
 # Define year interval
 Year = np.linspace(1960, 2021, 62)
@@ -27,6 +29,7 @@ for sector in sectors:
     for gas in df[df['sector'] == sector]['gas'].unique():
         # Initialize an empty plot for the current sector and gas
         fig, ax = plt.subplots()
+        fig.set_size_inches(10, 8)
 
         # Loop through the country codes
         for country_code in country_codes:
@@ -44,7 +47,6 @@ for sector in sectors:
         plt.ylabel('Emission/MtCO2e')
         plt.title(f'{sector} - {gas} Gas Values Comparison')
         plt.legend()
-        
         
         file_name = f'{file_path} - {sector} - {gas} Gas Values Comparison.png'
         plt.savefig(file_name)
