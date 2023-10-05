@@ -14,11 +14,11 @@ df = pd.read_csv(file_path)
 
 # Define the country codes
 #country_codes = ["ARM", "AZE", "BLR", "GEO", "KAZ", "KGZ", "LVA", "MDA", "RUS", "TJK", "TKM", "UKR", "UZB", "LTU", "EST"]
-#country_codes = ["AZE", "BLR", "GEO", "KAZ", "RUS", "UKR", "UZB", "EST"]
-country_codes = ["EST"]
+country_codes = ["AZE", "BLR", "GEO", "KAZ", "RUS", "UKR", "UZB"]
+#country_codes = ["EST"]
 # Define the sectors
-sectors = ["Agriculture", "Energy", "Industrial Processes and Product Use", "Other", "Total excluding LULUCF", "Waste"]
-#sectors = ["Total excluding LULUCF"]
+#sectors = ["Agriculture", "Energy", "Industrial Processes and Product Use", "Other", "Total excluding LULUCF", "Waste"]
+sectors = ["Total excluding LULUCF"]
 
 # Define year interval
 Year = np.linspace(1960, 2021, 62)
@@ -41,6 +41,15 @@ for sector in sectors:
                 gas_values = filtered_df.iloc[:, 4:].values.flatten()
 
                 plt.plot(Year, gas_values, label=f'{country_code}')
+                
+        # seperate code to plot EST        
+        filtered_df = df[(df['Country Code'] == "EST") & (df['sector'] == sector) & (df['gas'] == gas)]
+
+        if not filtered_df.empty:
+            # Extract the gas values for the current country, sector, and gas
+            gas_values = filtered_df.iloc[:, 4:].values.flatten()
+
+            plt.plot(Year, gas_values, label="EST", color='black', linestyle='dashed', linewidth=2)
 
         # Set labels and title for the current sector and gas
         plt.xlabel('Year')
