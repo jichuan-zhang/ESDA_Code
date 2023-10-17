@@ -89,7 +89,7 @@ dim (r_res2) #540 * 600
 
 # g. read raster data ====
 # rast function can not create raster but also read in raster data
-solar = rast( "cropped_solar_WGS84_Zambia.tif")
+solar = rast( "solar_WGS84_Zambia.tif")
 solar
 plot(solar)
 #review what we have learned check other information about the imported raster
