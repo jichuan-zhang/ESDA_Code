@@ -7,6 +7,7 @@ Created on Sat Oct 21 21:28:00 2023
 
 import pandas as pd
 import os
+import zipfile
 
 # Can't really be asked to expose my whole system directory, so doing some manipulation to get to the directory of the repo first
 
@@ -26,8 +27,13 @@ repo_path = os.path.realpath(current)
 while os.path.basename(repo_path) != repo:
     repo_path = os.path.dirname(repo_path)
 
+# Very funny he doesn't realise read_csv don't work when there is more than one thing in that zip
+with zipfile.ZipFile("Pandas.zip") as z:
+    with z.open("Pandas/brics.csv") as f:
+        df0 = pd.read_csv(f)
+        print(df0.head())
 
-
+# Below is what I think he actually want to see, I grabbed some old data and zipped it
 # Method 1
 df1 = pd.read_csv("Calendar_ageing_60degC_SOC_100.zip")
 print(df1.head())
