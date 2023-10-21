@@ -18,7 +18,7 @@ current = os.path.realpath(__file__)
 current_path = os.path.dirname(current)
 
 # This is the folder name of the repo
-repo = "ESDA_Codes"
+repo = "ESDA_Code"
 
 # This finds the path of the parent of current file, which is actually ESDA_Codes
 repo_path = os.path.realpath(current)
