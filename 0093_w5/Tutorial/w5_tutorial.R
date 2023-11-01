@@ -74,12 +74,6 @@ listw_idw$weights
 
 london_fp$lag_fp2017 = lag.listw(listw, london_fp$X2017) 
 #note: the listw data is the one we created in step 1 and 2
-neighbours <- poly2nb(london_fp)
-listw <- nb2listw(neighbours, style="W")
-
-lm1 <- lm(london_fp$lag_fp2017 ~ london_fp$X2017)
-# The regression coefficient is the Moran's I statistic.
-summary(lm1)
 
 globalMoranI <- moran.test(london_fp$X2017, listw)
 globalMoranI 
@@ -135,7 +129,9 @@ london_fp[which(london_fp$fp_mean > 0 & london_fp$moran_mean < 0 ), "clustering"
 
 london_fp[which(london_fp$fp_mean < 0 &london_fp$moran_mean > 0 ), "clustering"] = "L-L"
 #not significant group: group number 0
-london_fp[which(london_fp$sig >0.1), "clustering"] = "Missing" #assign the cluster number 0 to those local moran i test showing insignificant results. Question: Why we do this in the last step not the first step? 
+london_fp[which(london_fp$sig >0.1), "clustering"] = "Missing" 
+#assign the cluster number 0 to those local moran i test showing insignificant results. 
+# Question: Why we do this in the last step not the first step? 
 
 london_fp$clustering <- as.factor(london_fp$clustering ) #just want to emphase clustering column is categorical data instead of numerical.
 
@@ -153,3 +149,4 @@ tm_shape(london_fp)+
 
 tm_shape(london_fp)+
   tm_fill(col="sig", breaks=c(0,0.01, 0.05, 0.1, 0.2, 1), palette = "-Greens", alpha=.75)
+
