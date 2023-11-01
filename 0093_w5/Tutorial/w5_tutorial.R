@@ -6,12 +6,12 @@ library(tmap)
 library(sp)
 library(rstudioapi)
 
+setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
 england <- st_read("LSOA.geojson" )
 fuel_poverty <- read.csv(  "fuel_poverty_london.csv") 
-london <- england[which (england$LSOA11CD %in% fuel_poverty$LSOA_2011_Code ) , ] 
 #extract London lsoa: find out which England lsoa code are within the list of fuel_poverty London's lsoa code.
-
+london <- england[which (england$LSOA11CD %in% fuel_poverty$LSOA_2011_Code ) , ] 
 #join lsoa london and fuel poverty data
 london_fp <- left_join(london, fuel_poverty, by=c("LSOA11CD"=  "LSOA_2011_Code"))
 
@@ -22,8 +22,6 @@ tm_shape(london_fp )+
   tm_borders(alpha=.2) 
 
 neighbours <- poly2nb(london_fp)  #default setting is queen contiguity
-#neighbours <- poly2nb(london_fp, queen=TRUE)  
-#if QUEEN=TRUE, a single shared boundary point meets the contiguity condition, if FALSE, more than one shared point is required;
 neighbours
 
 #get the coordinates of each losa's centroids
@@ -32,14 +30,12 @@ coords <- st_coordinates(st_centroid(st_geometry(london_fp)))
 plot(london_fp$geometry, border = 'pink')
 plot(neighbours, coords ,cex=.1, add=TRUE, col='blue')
 
-#coordinates {sp}
-
 #knearneigh
 kn1 <- knn2nb(knearneigh(coords, k = 1))
 kn1
 
 kn2 <- knn2nb(knearneigh(coords, k = 2))
-kn3 <- knn2nb(knearneigh(coords, k = 3)) #each lsoa finds three neaewst neighbours
+kn3 <- knn2nb(knearneigh(coords, k = 3)) #each lsoa finds three nearest neighbours
 
 z=knearneigh(coords, k = 1)
 head(z$nn, 5) #so you can tell the which lsoa is each lsoa's first nearest neighbour.
@@ -68,15 +64,10 @@ plot(kd1, coords, add=TRUE, cex=.02, col='blue')
 listw <- nb2listw(neighbours, style="W") #style can take values “W”, “B”, “C”, “U”, “minmax” and “S”
 listw$weights
 
-###############################################
-
-
 kn_all <- knn2nb(knearneigh(coords, k = 4)) #find nearest 4 neighbours
 dists <- nbdists(kn_all, coords)
 dists
 
-
-###############################################
 idw <- lapply(dists, function(x) 100/(x))  
 listw_idw <- nb2listw(kn_all, glist = idw, style = "W")
 listw_idw$weights
@@ -131,6 +122,8 @@ tm_shape(london_fp)+
                       "Missing"= "#fefae0"),alpha=.7)+ 
   tm_borders(col="white", lwd=0.2)
 
+
+# different way to do the map
 london_fp$fp_mean = london_fp$X2017 - mean(london_fp$X2017)
 london_fp$moran_mean = local[,1]-mean(local[,1])
 
