@@ -44,6 +44,12 @@ income_per_charging_port =
   tm_fill(col = "income_per_charging_port", alpha = 0.7, palette = "-inferno",
           style = "quantile", legend.show = FALSE)
 
+area_per_charging_port = 
+  tm_shape(lsoa_all, bbox = bbox_new)+
+  tm_fill(col = "count", convert2density = TRUE, area = "Shape__Area",
+          alpha = 0.7, palette = "inferno",
+          style = "quantile", legend.show = FALSE)
+
 charging_ports_scatter =
   tm_shape(charging_ports_in_lsoa) +
   tm_dots(col = "blue", size = 0.00002)
@@ -84,6 +90,18 @@ legends3 =
                            "16.283 to 50,102",
                            "No Charger in LSOA"),
                 title = "Income per EV Charger")
+
+legends4 = 
+  tm_add_legend(type = "symbol", col = c(rev(inferno(5)), "grey"),
+                border.col = "black", border.lwd = 0.2,size = 1,
+                shape = c(22, 22, 22, 22, 22, 22),
+                labels = c("0 to 1",
+                           "1 to 3",
+                           "3 to 8",
+                           "8 to 21",
+                           "21 to 683",
+                           "No Charger in LSOA"),
+                title = "Area Density / m2")
 
 datasource =
   tm_credits("Source: \nOffice for National Statistics \nNational Chargepoint Registry",
@@ -131,4 +149,16 @@ map3 =
             title.position = c("center", "top"))+
   other_stuff
 
-tmap_save(map1, filename = "Scattered Charging Port on Income 17.png", width = 1440, height = 1920)
+# Fourth Map - Income per EV Charger
+map4 =
+  area_per_charging_port+
+  legends4+   
+  datasource+
+  tm_layout(legend.show = TRUE,
+            legend.position = c(0.05, 0.65),
+            legend.title.fontface = "bold",
+            title = "EV Charging Port Area Density",
+            title.position = c("center", "top"))+
+  other_stuff
+
+tmap_save(map4, filename = "Area Density 1.png", width = 1440, height = 1920)
