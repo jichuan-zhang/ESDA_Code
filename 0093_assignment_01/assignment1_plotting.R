@@ -77,7 +77,7 @@ legends2 =
                            "4 to 6",
                            "7 or more",
                            "No Charger in LSOA"),
-                title = "Income per EV Charger")
+                title = "Number of EV Charger")
 
 legends3 = 
   tm_add_legend(type = "symbol", col = c(rev(inferno(5)), "grey"),
@@ -161,4 +161,4 @@ map4 =
             title.position = c("center", "top"))+
   other_stuff
 
-tmap_save(map4, filename = "Area Density 2.png", width = 1440, height = 1920)
+tmap_save(map2, filename = "Number of EV Charging Port 2.png", width = 1440, height = 1920)
