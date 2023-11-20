@@ -161,4 +161,4 @@ map4 =
             title.position = c("center", "top"))+
   other_stuff
 
-tmap_save(map4, filename = "Area Density 1.png", width = 1440, height = 1920)
+tmap_save(map4, filename = "Area Density 2.png", width = 1440, height = 1920)
