@@ -24,6 +24,7 @@ average_consumption_2013 <- average_consumption_2013 %>%
 real_tariff <- data.frame(Tariff = c("Low", "Normal", "High"), Value = c(0.0399, 0.1176, 0.6720))
 custom_tariff <- data.frame(Tariff = c("Low", "Normal", "High"), Value = c(0.04, 0.1, 0.958))
 
+# Calculating annual consumption overview
 consumption_annual <- average_consumption_2013 %>%
   group_by(Acorn_grouped) %>%
   summarise(total_consumption = sum(Average_KWH, na.rm = TRUE), .groups = "drop")
@@ -36,7 +37,6 @@ consumption_tariff_level_annual <- average_consumption_2013 %>%
   left_join(real_tariff, by = "Tariff") %>%
   left_join(custom_tariff, by = "Tariff") %>%
   rename(real_tariff = Value.x, custom_tariff = Value.y)
-
 
 # Apply real tariff
 average_consumption_2013 <- average_consumption_2013 %>%
@@ -55,6 +55,7 @@ monthly_costs_comparison <- average_consumption_2013 %>%
             custom_cost = sum(custom_cost, na.rm = TRUE),
             .groups = "drop")
 
+# Line Plot
 # Reshape data for line plot
 long_format <- monthly_costs_comparison %>%
   pivot_longer(cols = c(cost, custom_cost), names_to = "TariffType", values_to = "Cost")
@@ -69,6 +70,7 @@ l <-ggplot(long_format, aes(x = Month, y = Cost, color = Acorn_grouped, linetype
   scale_linetype_manual(values = c("solid", "dashed")) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+# Bar Plot
 # Make sure the Month column is a factor and in the correct order
 monthly_costs_comparison$Month <- factor(monthly_costs_comparison$Month,
                                          levels = sort(unique(monthly_costs_comparison$Month)))
@@ -123,10 +125,11 @@ annual_plot <- ggplot(annual_data, aes(x = Acorn_grouped, y = Cost, fill = Tarif
 # Add the annual plot to the list
 plots_list[["Annual"]] <- annual_plot
 
+# View Plots (Optional)
 #print(l)
-print(plots_list[["Annual"]])
+#print(plots_list[["Annual"]])
 
-
+# Save Plots and Results
 ggsave("line_plot.png", plot = l, width = 8, height = 6, dpi = 300)
 for (name in names(plots_list)) {
   file_name <- paste0(name, "_cost_comparison.png") # creates the full file path
