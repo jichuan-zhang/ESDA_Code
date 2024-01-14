@@ -1,0 +1,14 @@
+﻿Type of Electric Generator,,,
+,Installed Capacity (MW) of Electricity State Company (MW),,
+,2020,2021,2022
+Hydro,5513.48,5964.03,6011.83
+Steam,32920.33,37192,37203
+GasTurbine,5174.26,5083.34,4880.3
+SteamGas,11993.1,13943.13,14299.98
+Geothermal,1979.4,2910.68,2910.68
+Diesel,5388.17,4201.3,4233.33
+Gas Engine Power,1748.67,2746.01,2876.1
+Micro Hydro,203.95,500.94,560.02
+Solar,18.42,85.88,102.37
+Others,296.02,266.29,266.15
+Total of Installed Capacity,65235.8,72893.6,73343.76

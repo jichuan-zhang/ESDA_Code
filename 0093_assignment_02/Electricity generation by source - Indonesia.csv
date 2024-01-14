@@ -1,0 +1,13 @@
+Source: IEA Electricity Information https://www.iea.org/data-and-statistics/data-product/electricity-information
+Documentation: undefined
+This data is subject to the IEA's terms and conditions: https://www.iea.org/terms
+
+,Coal,Oil,Natural gas,Hydro,Geothermal,Biofuels,Wind,Solar PV,Waste,Units
+1990,9768,15332,734,5708,1125,,,,,GWh
+1995,14367,9680,25401,7530,2210,5,,,,GWh
+2000,34002,18342,26090,10016,4869,6,,,,GWh
+2005,51793,39299,19086,10725,6604,22,,,,GWh
+2010,68445,34150,40247,17456,9357,95,4,1,,GWh
+2015,130508,19650,58894,13741,10048,1114,4,5,20,GWh
+2020,180869,7906,48052,24325,15563,14448,475,171,17,GWh
+2021,189684,8684,51604,24697,15899,17453,437,193,11,GWh
